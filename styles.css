@@ -208,8 +208,8 @@ th { font-weight: 600; color: var(--text-secondary); }
 .span-strip { display: grid; grid-template-columns: repeat(12, 1fr); gap: 3px; margin: 16px 0 4px; }
 .span-strip div { height: 34px; border-radius: 5px; background: var(--surface-2); display: grid; place-items: center; font: 500 13px var(--mono); color: var(--text-muted); }
 .span-strip div.fill { background: var(--series-1); color: #fff; }
-.span-marks { display: grid; grid-template-columns: repeat(12, 1fr); gap: 3px; font-size: 12.5px; color: var(--text-secondary); line-height: 1.25; }
-.span-marks div { border-top: 2px solid var(--text-muted); padding-top: 5px; margin-top: 4px; }
+.span-strip div.ref { box-shadow: inset 0 0 0 2px var(--text-primary); color: var(--text-primary); }
+.span-strip div.ref.fill { color: #fff; }
 
 /* ---------- leak diagram ---------- */
 .funnel { margin: 26px 0 0; }
@@ -283,3 +283,4 @@ footer { padding: 32px 0 56px; border-top: 1px solid var(--line); font-size: 14p
   .fade-words span, .pulse i { animation: none; }
   .bar-fill { transition: none; }
 }
+.callout .note { color: var(--text-secondary); }

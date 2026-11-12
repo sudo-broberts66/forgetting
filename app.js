@@ -132,7 +132,7 @@
     bpEl.k.textContent = 'Ready'; bpEl.big.textContent = '· · ·';
     bpEl.hint.textContent = 'Keep counting until the bar runs out. No peeking, no writing down.';
     bpEl.btn.textContent = 'Start round 1 of 6'; bpEl.btn.style.visibility = 'visible';
-    bpEl.input.value = ''; bpEl.input.classList.add('idle');
+    bpEl.input.value = ''; bpEl.input.classList.add('idle'); bpEl.input.hidden = false;
     stopTimer(bpEl.timer);
     bpEl.res.hidden = true;
   }
@@ -187,7 +187,7 @@
     bp.phase = 'done';
     bpEl.k.textContent = 'Done'; bpEl.big.textContent = '✓';
     bpEl.hint.textContent = 'Your results are below.';
-    bpEl.btn.textContent = 'Run it again';
+    bpEl.btn.textContent = 'Run it again'; bpEl.input.hidden = true;
     const by = d => bp.res.filter(r => r.delay === d).reduce((a, r) => a + r.hits, 0);
     const steps = bp.res.reduce((a, r) => a + r.steps, 0);
     const first = bp.res[0].hits, later = bp.res.slice(1).reduce((a, r) => a + r.hits, 0) / 5;
@@ -245,7 +245,7 @@
       el.value = el.value.toUpperCase().replace(/[^A-Z]/g, '').slice(0, 3);
     } else el.value = '';
   });
-  bpEl.input.addEventListener('keydown', e => { if (e.key === 'Enter' && bp.phase === 'recall') bpSubmit(); });
+  bpEl.input.addEventListener('keydown', e => { if (e.key === 'Enter' && bp.phase === 'recall') { e.preventDefault(); bpSubmit(); } });
   bpReset();
 
   /* ======================= LAB 2: digit span ======================= */
@@ -270,7 +270,7 @@
     dsEl.k.textContent = 'Ready'; dsEl.big.textContent = '· · ·';
     dsEl.hint.textContent = 'Wait until the digits stop before you type.';
     dsEl.btn.textContent = 'Start with 4 digits'; dsEl.btn.disabled = false;
-    dsEl.input.value = ''; dsEl.input.classList.add('idle');
+    dsEl.input.value = ''; dsEl.input.classList.add('idle'); dsEl.input.hidden = false;
     dsEl.res.hidden = true;
   }
 
@@ -330,18 +330,15 @@
   function dsResults() {
     ds.phase = 'done';
     dsEl.k.textContent = 'Done'; dsEl.big.textContent = '✓'; dsEl.hint.textContent = 'Your result is below.';
-    dsEl.btn.textContent = 'Run it again';
+    dsEl.btn.textContent = 'Run it again'; dsEl.input.hidden = true;
     const n = ds.best;
     dsEl.res.hidden = false;
     dsEl.res.innerHTML = `
       <h3>${n ? `Your span in this run: ${n} digits` : 'No list recalled this time'}</h3>
       <div class="span-strip" role="img" aria-label="Scale from 1 to 12 digits with your span of ${n} filled in">
-        ${Array.from({ length: 12 }, (_, i) => `<div class="${i < n ? 'fill' : ''}">${i + 1}</div>`).join('')}
+        ${Array.from({ length: 12 }, (_, i) => `<div class="${i < n ? 'fill' : ''}${i === 3 || i === 6 ? ' ref' : ''}">${i + 1}</div>`).join('')}
       </div>
-      <div class="span-marks" aria-hidden="true">
-        <div style="grid-column:4 / span 3">≈ 4 chunks, no rehearsal</div>
-        <div style="grid-column:7 / span 6">≈ 7 digits, typical span</div>
-      </div>
+      <p class="note">Outlined for comparison: 4 (chunks held without rehearsal) and 7 (typical digit span).</p>
       <div class="takeaway">
         <p><strong>Two numbers to compare with.</strong> People can typically repeat back about seven digits
         (${cite('miller', 'Miller, 1956')}). When rehearsing and grouping are prevented, the estimate of what
@@ -363,7 +360,7 @@
   dsEl.input.addEventListener('input', () => {
     dsEl.input.value = ds.phase === 'recall' ? dsEl.input.value.replace(/\D/g, '').slice(0, 14) : '';
   });
-  dsEl.input.addEventListener('keydown', e => { if (e.key === 'Enter' && ds.phase === 'recall') dsSubmit(); });
+  dsEl.input.addEventListener('keydown', e => { if (e.key === 'Enter' && ds.phase === 'recall') { e.preventDefault(); dsSubmit(); } });
 
   /* ======================= LAB 3: chunking ======================= */
   const POOL = ['USB', 'PDF', 'GPS', 'DNA', 'ATM', 'FAQ', 'VIP', 'CEO', 'DIY', 'URL', 'SMS', 'GIF'];
@@ -387,7 +384,7 @@
     chEl.k.textContent = 'Ready'; chEl.big.textContent = '· · · · · · · · · · · ·';
     chEl.hint.textContent = 'Just look. Typing starts when the letters disappear.';
     chEl.btn.textContent = 'Show round 1'; chEl.btn.style.visibility = 'visible';
-    chEl.input.value = ''; chEl.input.classList.add('idle');
+    chEl.input.value = ''; chEl.input.classList.add('idle'); chEl.input.hidden = false;
     stopTimer(chEl.timer);
     chEl.res.hidden = true;
   }
@@ -429,7 +426,7 @@
   function chResults() {
     ch.phase = 'done';
     chEl.k.textContent = 'Done'; chEl.big.textContent = '✓'; chEl.hint.textContent = 'Your results are below.';
-    chEl.btn.textContent = 'Run it again with new letters';
+    chEl.btn.textContent = 'Run it again with new letters'; chEl.input.hidden = true;
     const [a, b] = ch.scores;
     const bar = (label, v) => `<div class="bar-row"><span>${label}</span><div class="bar-track"><div class="bar-fill" style="width:${pct(v, 12)}%"></div></div><span class="bar-val">${v} / 12</span></div>`;
     chEl.res.hidden = false;
@@ -461,7 +458,7 @@
   chEl.input.addEventListener('input', () => {
     chEl.input.value = ch.phase === 'recall' ? chEl.input.value.toUpperCase().replace(/[^A-Z]/g, '').slice(0, 12) : '';
   });
-  chEl.input.addEventListener('keydown', e => { if (e.key === 'Enter' && ch.phase === 'recall') chSubmit(); });
+  chEl.input.addEventListener('keydown', e => { if (e.key === 'Enter' && ch.phase === 'recall') { e.preventDefault(); chSubmit(); } });
   chReset();
 
   /* ======================= stages ======================= */
@@ -473,7 +470,7 @@
     },
     {
       what: `Only what you attend to is processed enough to be remembered later. Attention works like a gate between hearing something and being able to recall it.`,
-      lost: `When people did a second task while hearing a list of words, their later memory for the words dropped sharply. The same second task during recall cost much less (${cite('craik96', 'Craik et al., 1996')}). In another study people took turns reading words aloud to a group, and later recalled the words spoken just before their own turn worse than the rest: the “next-in-line effect” (${cite('brenner', 'Brenner, 1973')}).`,
+      lost: `When people did a second task while studying a list of words, their later memory for the words dropped sharply. The same second task during recall cost much less (${cite('craik96', 'Craik et al., 1996')}). In another study people took turns reading words aloud to a group, and later recalled the words spoken just before their own turn worse than the rest: the “next-in-line effect” (${cite('brenner', 'Brenner, 1973')}).`,
       means: `This is a plausible reason a name vanishes during an introduction: at the moment it is spoken, your attention is on what you are about to say. That link is an interpretation. Brenner tested word lists, not introductions.`
     },
     {
