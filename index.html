@@ -1,0 +1,356 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Gone in Seconds: why we forget what we just heard</title>
+<meta name="description" content="An interactive, sourced explainer for students: why we forget things almost instantly after hearing them, with three classic memory experiments you can run on yourself.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,400..700;1,9..144,400..700&family=IBM+Plex+Mono:wght@400;500&family=IBM+Plex+Sans:wght@400;500;600&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="styles.css">
+</head>
+<body>
+<a class="skip" href="#answer">Skip to content</a>
+
+<nav class="nav" aria-label="Sections">
+  <div class="wide nav-in">
+    <a class="brand" href="#top">Gone in Seconds</a>
+    <a href="#labs">Try it</a>
+    <a href="#why">Where it goes</a>
+    <a href="#debate">Open question</a>
+    <a href="#myths">Myth check</a>
+    <a href="#helps">What helps</a>
+    <a href="#sources">Sources</a>
+  </div>
+</nav>
+
+<main id="top">
+
+<header class="hero wrap" id="answer">
+  <p class="eyebrow">One question · three experiments on yourself</p>
+  <h1>Why do we forget things almost instantly after we <em class="fade-words"><span>hear</span> <span>them</span><span>?</span></em></h1>
+  <p class="lede">
+    <strong>Often because they were never stored in the first place.</strong>
+    Speech arrives once and is gone. What you hear lingers for a few seconds as a kind of echo, then has to fit
+    into a mental workspace that holds only a handful of items at a time. Unless you attend to it, repeat it,
+    or connect it to something you already know, it is no longer there when you reach for it.
+  </p>
+  <div class="hero-cta">
+    <a class="btn" href="#labs">Test it on yourself</a>
+    <a class="btn ghost" href="#why">Skip to the explanation</a>
+    <small>Three short demos, about 5 minutes in total.</small>
+  </div>
+</header>
+
+<!-- ======================= LABS ======================= -->
+<section id="labs">
+  <div class="wrap">
+    <span class="sec-num">Part 1</span>
+    <h2>Watch your own memory fail, on purpose</h2>
+    <p class="intro">
+      The claims on this page come from published experiments, and the simplest of them need nothing more than a
+      screen and a keyboard. These three are simplified versions of classic tasks. They are demonstrations, not
+      tests: one person, a few trials, no controls. Nothing you type leaves your browser.
+    </p>
+
+    <!-- LAB 1 -->
+    <article class="lab" id="lab-bp" aria-labelledby="bp-title">
+      <div class="lab-head">
+        <div class="lab-tag"><b>Lab 1</b> about 2 minutes · 6 rounds</div>
+        <h3 id="bp-title">Hold three letters for a few seconds</h3>
+        <p>Three letters is far less than anyone's memory can hold. The catch is what you have to do while holding them.</p>
+        <ol class="steps">
+          <li>Three letters appear for 2 seconds. Remember them.</li>
+          <li>A number appears. Count backward from it by threes, typing each answer (487 → 484 → 481 …) as fast as you can.</li>
+          <li>When the bar runs out, type the three letters.</li>
+        </ol>
+      </div>
+      <div class="stage">
+        <p class="stage-kicker" id="bp-kicker">Ready</p>
+        <div class="stage-big" id="bp-big" aria-hidden="true">· · ·</div>
+        <p class="stage-hint" id="bp-hint" aria-live="polite">Keep counting until the bar runs out. No peeking, no writing down.</p>
+        <div class="timer" id="bp-timer"><div class="timer-fill"></div></div>
+        <input id="bp-input" class="idle" type="text" inputmode="numeric" autocomplete="off" autocorrect="off" autocapitalize="characters" spellcheck="false" aria-label="Your answer" placeholder="answers go here">
+        <div class="stage-actions"><button class="btn" id="bp-btn" type="button">Start round 1 of 6</button></div>
+      </div>
+      <div class="results" id="bp-results" hidden></div>
+    </article>
+
+    <!-- LAB 2 -->
+    <article class="lab" id="lab-ds" aria-labelledby="ds-title">
+      <div class="lab-head">
+        <div class="lab-tag"><b>Lab 2</b> about 2 minutes</div>
+        <h3 id="ds-title">How many digits fit?</h3>
+        <p>
+          Digits arrive one per second. When they stop, type them back in order. The list grows by one each time
+          you get it right, and the demo ends after two misses at the same length.
+        </p>
+        <div class="seg" role="group" aria-label="How digits are presented">
+          <button type="button" id="ds-listen" aria-pressed="false">Listen</button>
+          <button type="button" id="ds-watch" aria-pressed="true">Watch</button>
+        </div>
+        <p class="note" id="ds-modenote" style="margin-top:8px">Listen uses your device's built-in voice. No sound? Switch to Watch.</p>
+      </div>
+      <div class="stage">
+        <p class="stage-kicker" id="ds-kicker">Ready</p>
+        <div class="stage-big" id="ds-big" aria-hidden="true">· · ·</div>
+        <p class="stage-hint" id="ds-hint" aria-live="polite">Wait until the digits stop before you type.</p>
+        <input id="ds-input" class="idle" type="text" inputmode="numeric" autocomplete="off" spellcheck="false" aria-label="Digits you remember" placeholder="digits go here">
+        <div class="stage-actions"><button class="btn" id="ds-btn" type="button">Start with 4 digits</button></div>
+      </div>
+      <div class="results" id="ds-results" hidden></div>
+    </article>
+
+    <!-- LAB 3 -->
+    <article class="lab" id="lab-ch" aria-labelledby="ch-title">
+      <div class="lab-head">
+        <div class="lab-tag"><b>Lab 3</b> about 1 minute · 2 rounds</div>
+        <h3 id="ch-title">Twelve letters, twice</h3>
+        <p>
+          A row of twelve letters appears for 6 seconds. When it disappears, type as many as you can, in order.
+          Then do it once more with a different row.
+        </p>
+      </div>
+      <div class="stage">
+        <p class="stage-kicker" id="ch-kicker">Ready</p>
+        <div class="stage-big sm" id="ch-big" aria-hidden="true">· · · · · · · · · · · ·</div>
+        <p class="stage-hint" id="ch-hint" aria-live="polite">Just look. Typing starts when the letters disappear.</p>
+        <div class="timer" id="ch-timer"><div class="timer-fill"></div></div>
+        <input id="ch-input" class="idle" type="text" autocomplete="off" autocorrect="off" autocapitalize="characters" spellcheck="false" maxlength="12" aria-label="Letters you remember" placeholder="letters go here">
+        <div class="stage-actions"><button class="btn" id="ch-btn" type="button">Show round 1</button></div>
+      </div>
+      <div class="results" id="ch-results" hidden></div>
+    </article>
+  </div>
+</section>
+
+<!-- ======================= WHY ======================= -->
+<section id="why">
+  <div class="wrap">
+    <span class="sec-num">Part 2</span>
+    <h2>Four places a spoken sentence can get lost</h2>
+    <p class="intro">
+      A useful first map, going back to
+      <a class="cite" href="#r-atkinson">Atkinson &amp; Shiffrin (1968)</a>, treats memory as a series of stages.
+      Information is lost at every one of them, and most of it never reaches the last. Select a stage to see
+      what happens there and what the evidence is.
+    </p>
+  </div>
+  <div class="wide">
+    <div class="funnel" aria-hidden="true">
+      <svg viewBox="0 0 800 84" preserveAspectRatio="none">
+        <path class="band" data-i="0" d="M0,4 L200,4 L200,80 L0,80 Z"/>
+        <path class="band" data-i="1" d="M200,4 C215,4 215,20 230,20 L400,20 L400,64 L230,64 C215,64 215,80 200,80 Z"/>
+        <path class="band" data-i="2" d="M400,20 C415,20 415,31 430,31 L600,31 L600,53 L430,53 C415,53 415,64 400,64 Z"/>
+        <path class="band" data-i="3" d="M600,31 C615,31 615,38 630,38 L800,38 L800,46 L630,46 C615,46 615,53 600,53 Z"/>
+      </svg>
+    </div>
+    <div class="tabs" role="tablist" aria-label="Stages of memory">
+      <button role="tab" id="tab-0" aria-controls="panel" aria-selected="true"><small>Stage 1</small><span>The echo</span></button>
+      <button role="tab" id="tab-1" aria-controls="panel" aria-selected="false" tabindex="-1"><small>Stage 2</small><span>The gate</span></button>
+      <button role="tab" id="tab-2" aria-controls="panel" aria-selected="false" tabindex="-1"><small>Stage 3</small><span>The workbench</span></button>
+      <button role="tab" id="tab-3" aria-controls="panel" aria-selected="false" tabindex="-1"><small>Stage 4</small><span>The archive</span></button>
+    </div>
+    <p class="funnel-cap">Schematic only. The narrowing band shows the direction of loss, not measured amounts.</p>
+    <div class="panel" id="panel" role="tabpanel" aria-labelledby="tab-0" tabindex="0"></div>
+  </div>
+  <div class="wrap" style="margin-top:28px">
+    <p class="note">
+      The stage picture is a simplification. Later accounts replace the single short-term store with a
+      multi-part working memory (<a class="cite" href="#r-baddeley">Baddeley &amp; Hitch, 1974</a>) or treat it as
+      the currently active, attended part of long-term memory (<a class="cite" href="#r-cowan">Cowan, 2001</a>).
+      The limits described here show up under all of these accounts.
+    </p>
+  </div>
+</section>
+
+<!-- ======================= DEBATE ======================= -->
+<section id="debate">
+  <div class="wrap">
+    <span class="sec-num">Part 3</span>
+    <h2>Does it fade, or does it get pushed out?</h2>
+    <p class="intro">
+      Everyone agrees that unrehearsed information becomes unavailable within seconds. Researchers still
+      disagree about why, and a fair answer to the question on this page has to say so.
+    </p>
+    <div class="versus">
+      <div class="side">
+        <h3>Time <small>decay</small></h3>
+        <ul>
+          <li><a class="cite" href="#r-brown">Brown (1958)</a> proposed that a memory trace simply weakens with time unless it is rehearsed.</li>
+          <li><a class="cite" href="#r-barrouillet">Barrouillet, Bernardin &amp; Camos (2004)</a> keep a role for time: in their model traces decay while attention is busy elsewhere and are restored when attention returns to them.</li>
+        </ul>
+      </div>
+      <div class="side">
+        <h3>Traffic <small>interference</small></h3>
+        <ul>
+          <li><a class="cite" href="#r-keppel">Keppel &amp; Underwood (1962)</a> found almost no forgetting on the very first trial of the three-letter task. Forgetting appeared as earlier trials piled up and got in the way.</li>
+          <li><a class="cite" href="#r-waugh">Waugh &amp; Norman (1965)</a> varied presentation speed and found recall depended mainly on how many items came after the target, not on how much time had passed.</li>
+          <li><a class="cite" href="#r-lewandowsky">Lewandowsky, Oberauer &amp; Brown (2009)</a> reviewed the evidence and argued that time-based decay is not needed to explain verbal short-term forgetting.</li>
+        </ul>
+      </div>
+    </div>
+    <div class="callout">
+      <p><strong>Where this stands.</strong> A large review of findings that any theory of short-term memory must
+      explain treats the question as unsettled (<a class="cite" href="#r-oberauer">Oberauer et al., 2018</a>).
+      For everyday purposes the two views predict the same thing: if more speech keeps arriving and you do
+      nothing with what you just heard, expect to lose it.</p>
+      <p id="bp-order-note" class="note" style="margin-top:10px">Run Lab 1 and your own first round versus later rounds will show up here.</p>
+    </div>
+  </div>
+</section>
+
+<!-- ======================= MYTHS ======================= -->
+<section id="myths">
+  <div class="wrap">
+    <span class="sec-num">Part 4</span>
+    <h2>Myth check</h2>
+    <p class="intro">Four things you may have been told about memory. Decide what you think, then check.</p>
+    <div class="myths">
+      <details class="myth">
+        <summary><q>We remember 10% of what we read and 20% of what we hear.</q><span class="flip"></span></summary>
+        <div class="myth-body">
+          <span class="verdict">No evidence behind it</span>
+          <p>These tidy percentages are usually attributed to Edgar Dale's "Cone of Experience". Dale's cone
+          contained no numbers, and a detailed search for the origin of the figures found no research that
+          supports them (<a class="cite" href="#r-subramony">Subramony et al., 2014</a>). How much of a talk you
+          retain depends on what you do with it, not on the fact that it reached you through your ears.</p>
+        </div>
+      </details>
+      <details class="myth">
+        <summary><q>Short-term memory holds seven things.</q><span class="flip"></span></summary>
+        <div class="myth-body">
+          <span class="verdict">Outdated shorthand</span>
+          <p><a class="cite" href="#r-miller">Miller (1956)</a> noted that people can repeat back about seven
+          digits, and in the same paper stressed that the unit is the chunk, not the item. When rehearsal
+          and grouping are prevented, the estimate drops to about four chunks, with a typical range of three
+          to five (<a class="cite" href="#r-cowan">Cowan, 2001</a>).</p>
+        </div>
+      </details>
+      <details class="myth">
+        <summary><q>The forgetting curve proves you lose half of a lecture within an hour.</q><span class="flip"></span></summary>
+        <div class="myth-body">
+          <span class="verdict">Over-reading one dataset</span>
+          <p>The curve comes from <a class="cite" href="#r-ebbinghaus">Ebbinghaus (1885)</a>, who tested one
+          person (himself) on lists of meaningless syllables. He did not measure the percentage recalled. He
+          measured <em>savings</em>: how much less time it took to relearn a list than to learn it the first time.</p>
+          <div class="viz" id="ebb-viz"></div>
+          <p>A modern replication with one participant found a similar curve
+          (<a class="cite" href="#r-murre">Murre &amp; Dros, 2015</a>), so the shape is real for that kind of
+          material. It does not tell you what share of a meaningful lecture you will remember, and it describes
+          forgetting over hours and days, not the seconds-long loss this page is about.</p>
+        </div>
+      </details>
+      <details class="myth">
+        <summary><q>Forgetting something right away means my memory is bad.</q><span class="flip"></span></summary>
+        <div class="myth-body">
+          <span class="verdict">Not supported</span>
+          <p>The limits in Part 2 were measured in ordinary, healthy adults, most of them university students.
+          Losing unrehearsed details within seconds is the normal result. Some researchers go further and
+          argue that losing detail is part of what memory is for, because it favours flexible decisions over a
+          perfect record (<a class="cite" href="#r-richards">Richards &amp; Frankland, 2017</a>). That is a
+          theoretical argument, not a settled finding. This page cannot assess anyone's memory; if yours has
+          changed in a way that worries you, that is a question for a clinician.</p>
+        </div>
+      </details>
+    </div>
+  </div>
+</section>
+
+<!-- ======================= HELPS ======================= -->
+<section id="helps">
+  <div class="wrap">
+    <span class="sec-num">Part 5</span>
+    <h2>What helps, according to the evidence</h2>
+    <p class="intro">Each of these targets one of the four places where information is lost.</p>
+    <ol class="helps">
+      <li>
+        <h3>Give it your attention at the moment it arrives</h3>
+        <p>Doing a second task while taking information in sharply reduced later memory in
+        <a class="cite" href="#r-craik96">Craik et al. (1996)</a>. Attention that goes to a phone, or to planning
+        what you will say next, is not available for encoding.</p>
+      </li>
+      <li>
+        <h3>Do something with the meaning</h3>
+        <p>People who judged whether a word fitted a sentence later remembered it far better than people who
+        judged its typeface or its sound (<a class="cite" href="#r-craik75">Craik &amp; Tulving, 1975</a>). Ask
+        what a new fact implies, or how it connects to something you already know.</p>
+      </li>
+      <li>
+        <h3>Chunk it</h3>
+        <p>Grouping items into familiar units lets the same limited workspace carry more
+        (<a class="cite" href="#r-miller">Miller, 1956</a>). With more than 230 hours of practice at recoding
+        digits into meaningful groups, one student raised his digit span from 7 to 79
+        (<a class="cite" href="#r-ericsson">Ericsson, Chase &amp; Faloon, 1980</a>).</p>
+      </li>
+      <li>
+        <h3>Say it back, then quiz yourself</h3>
+        <p>Repeating something immediately keeps it active. Recalling it later does more: students who
+        practised retrieving a passage remembered more of it two days and one week later than students who
+        reread it, even though rereading looked better after five minutes
+        (<a class="cite" href="#r-roediger">Roediger &amp; Karpicke, 2006</a>).</p>
+      </li>
+      <li>
+        <h3>Come back to it later</h3>
+        <p>Spreading study over time beats cramming the same amount into one session across a large body of
+        experiments (<a class="cite" href="#r-cepeda">Cepeda et al., 2006</a>). A review of ten study
+        techniques rated practice testing and distributed practice as the two with high utility, and
+        rereading and highlighting as low (<a class="cite" href="#r-dunlosky">Dunlosky et al., 2013</a>).</p>
+      </li>
+    </ol>
+  </div>
+</section>
+
+<!-- ======================= SOURCES ======================= -->
+<section id="sources">
+  <div class="wrap">
+    <span class="sec-num">Sources</span>
+    <h2>References</h2>
+    <p class="note">Every empirical claim above links to one of these. Journal articles may require library access.</p>
+    <ol class="refs">
+      <li id="r-atkinson">Atkinson, R. C., &amp; Shiffrin, R. M. (1968). Human memory: A proposed system and its control processes. <i>Psychology of Learning and Motivation, 2</i>, 89–195. <a href="https://doi.org/10.1016/S0079-7421(08)60422-3">doi:10.1016/S0079-7421(08)60422-3</a></li>
+      <li id="r-baddeley">Baddeley, A. D., &amp; Hitch, G. (1974). Working memory. <i>Psychology of Learning and Motivation, 8</i>, 47–89. <a href="https://doi.org/10.1016/S0079-7421(08)60452-1">doi:10.1016/S0079-7421(08)60452-1</a></li>
+      <li id="r-barrouillet">Barrouillet, P., Bernardin, S., &amp; Camos, V. (2004). Time constraints and resource sharing in adults' working memory spans. <i>Journal of Experimental Psychology: General, 133</i>(1), 83–100. <a href="https://doi.org/10.1037/0096-3445.133.1.83">doi:10.1037/0096-3445.133.1.83</a></li>
+      <li id="r-brenner">Brenner, M. (1973). The next-in-line effect. <i>Journal of Verbal Learning and Verbal Behavior, 12</i>(3), 320–323. <a href="https://doi.org/10.1016/S0022-5371(73)80076-3">doi:10.1016/S0022-5371(73)80076-3</a></li>
+      <li id="r-brown">Brown, J. (1958). Some tests of the decay theory of immediate memory. <i>Quarterly Journal of Experimental Psychology, 10</i>(1), 12–21. <a href="https://doi.org/10.1080/17470215808416249">doi:10.1080/17470215808416249</a></li>
+      <li id="r-cepeda">Cepeda, N. J., Pashler, H., Vul, E., Wixted, J. T., &amp; Rohrer, D. (2006). Distributed practice in verbal recall tasks: A review and quantitative synthesis. <i>Psychological Bulletin, 132</i>(3), 354–380. <a href="https://doi.org/10.1037/0033-2909.132.3.354">doi:10.1037/0033-2909.132.3.354</a></li>
+      <li id="r-cowan">Cowan, N. (2001). The magical number 4 in short-term memory: A reconsideration of mental storage capacity. <i>Behavioral and Brain Sciences, 24</i>(1), 87–114. <a href="https://doi.org/10.1017/S0140525X01003922">doi:10.1017/S0140525X01003922</a></li>
+      <li id="r-craik72">Craik, F. I. M., &amp; Lockhart, R. S. (1972). Levels of processing: A framework for memory research. <i>Journal of Verbal Learning and Verbal Behavior, 11</i>(6), 671–684. <a href="https://doi.org/10.1016/S0022-5371(72)80001-X">doi:10.1016/S0022-5371(72)80001-X</a></li>
+      <li id="r-craik75">Craik, F. I. M., &amp; Tulving, E. (1975). Depth of processing and the retention of words in episodic memory. <i>Journal of Experimental Psychology: General, 104</i>(3), 268–294. <a href="https://doi.org/10.1037/0096-3445.104.3.268">doi:10.1037/0096-3445.104.3.268</a></li>
+      <li id="r-craik96">Craik, F. I. M., Govoni, R., Naveh-Benjamin, M., &amp; Anderson, N. D. (1996). The effects of divided attention on encoding and retrieval processes in human memory. <i>Journal of Experimental Psychology: General, 125</i>(2), 159–180. <a href="https://doi.org/10.1037/0096-3445.125.2.159">doi:10.1037/0096-3445.125.2.159</a></li>
+      <li id="r-darwin">Darwin, C. J., Turvey, M. T., &amp; Crowder, R. G. (1972). An auditory analogue of the Sperling partial report procedure: Evidence for brief auditory storage. <i>Cognitive Psychology, 3</i>(2), 255–267. <a href="https://doi.org/10.1016/0010-0285(72)90007-2">doi:10.1016/0010-0285(72)90007-2</a></li>
+      <li id="r-dunlosky">Dunlosky, J., Rawson, K. A., Marsh, E. J., Nathan, M. J., &amp; Willingham, D. T. (2013). Improving students' learning with effective learning techniques: Promising directions from cognitive and educational psychology. <i>Psychological Science in the Public Interest, 14</i>(1), 4–58. <a href="https://doi.org/10.1177/1529100612453266">doi:10.1177/1529100612453266</a></li>
+      <li id="r-ebbinghaus">Ebbinghaus, H. (1913). <i>Memory: A contribution to experimental psychology</i> (H. A. Ruger &amp; C. E. Bussenius, Trans.). Teachers College, Columbia University. (Original work published 1885.) <a href="https://psychclassics.yorku.ca/Ebbinghaus/index.htm">psychclassics.yorku.ca/Ebbinghaus</a></li>
+      <li id="r-ericsson">Ericsson, K. A., Chase, W. G., &amp; Faloon, S. (1980). Acquisition of a memory skill. <i>Science, 208</i>(4448), 1181–1182. <a href="https://doi.org/10.1126/science.7375930">doi:10.1126/science.7375930</a></li>
+      <li id="r-keppel">Keppel, G., &amp; Underwood, B. J. (1962). Proactive inhibition in short-term retention of single items. <i>Journal of Verbal Learning and Verbal Behavior, 1</i>(3), 153–161. <a href="https://doi.org/10.1016/S0022-5371(62)80023-1">doi:10.1016/S0022-5371(62)80023-1</a></li>
+      <li id="r-lewandowsky">Lewandowsky, S., Oberauer, K., &amp; Brown, G. D. A. (2009). No temporal decay in verbal short-term memory. <i>Trends in Cognitive Sciences, 13</i>(3), 120–126. <a href="https://doi.org/10.1016/j.tics.2008.12.003">doi:10.1016/j.tics.2008.12.003</a></li>
+      <li id="r-miller">Miller, G. A. (1956). The magical number seven, plus or minus two: Some limits on our capacity for processing information. <i>Psychological Review, 63</i>(2), 81–97. <a href="https://doi.org/10.1037/h0043158">doi:10.1037/h0043158</a></li>
+      <li id="r-murre">Murre, J. M. J., &amp; Dros, J. (2015). Replication and analysis of Ebbinghaus' forgetting curve. <i>PLOS ONE, 10</i>(7), e0120644. <a href="https://doi.org/10.1371/journal.pone.0120644">doi:10.1371/journal.pone.0120644</a> (open access)</li>
+      <li id="r-oberauer">Oberauer, K., Lewandowsky, S., Awh, E., Brown, G. D. A., Conway, A., Cowan, N., et al. (2018). Benchmarks for models of short-term and working memory. <i>Psychological Bulletin, 144</i>(9), 885–958. <a href="https://doi.org/10.1037/bul0000153">doi:10.1037/bul0000153</a></li>
+      <li id="r-peterson">Peterson, L. R., &amp; Peterson, M. J. (1959). Short-term retention of individual verbal items. <i>Journal of Experimental Psychology, 58</i>(3), 193–198. <a href="https://doi.org/10.1037/h0049234">doi:10.1037/h0049234</a></li>
+      <li id="r-richards">Richards, B. A., &amp; Frankland, P. W. (2017). The persistence and transience of memory. <i>Neuron, 94</i>(6), 1071–1084. <a href="https://doi.org/10.1016/j.neuron.2017.04.037">doi:10.1016/j.neuron.2017.04.037</a></li>
+      <li id="r-roediger">Roediger, H. L., III, &amp; Karpicke, J. D. (2006). Test-enhanced learning: Taking memory tests improves long-term retention. <i>Psychological Science, 17</i>(3), 249–255. <a href="https://doi.org/10.1111/j.1467-9280.2006.01693.x">doi:10.1111/j.1467-9280.2006.01693.x</a></li>
+      <li id="r-subramony">Subramony, D. P., Molenda, M., Betrus, A. K., &amp; Thalheimer, W. (2014). The mythical retention chart and the corruption of Dale's Cone of Experience. <i>Educational Technology, 54</i>(6), 6–16. <a href="https://eric.ed.gov/?id=EJ1057239">ERIC EJ1057239</a></li>
+      <li id="r-waugh">Waugh, N. C., &amp; Norman, D. A. (1965). Primary memory. <i>Psychological Review, 72</i>(2), 89–104. <a href="https://doi.org/10.1037/h0021797">doi:10.1037/h0021797</a></li>
+    </ol>
+    <h3 style="margin-top:28px">Limits of this page</h3>
+    <p class="note">
+      The three labs are informal demonstrations. They differ from the original procedures (for example, the
+      original three-letter experiment used spoken items, counting aloud and a time limit on answers), each
+      runs only a few trials, and the results say nothing about your memory compared with anyone else's.
+      Where the page gives a number from a study, it is the figure reported in that study or, where marked
+      approximate, the figure as it is commonly reported from the study's graphs.
+    </p>
+  </div>
+</section>
+
+</main>
+
+<footer>
+  <div class="wrap">Gone in Seconds · a study aid on short-term forgetting · no data is collected or stored.</div>
+</footer>
+
+<script src="app.js"></script>
+</body>
+</html>
