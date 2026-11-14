@@ -73,7 +73,7 @@ main { flex: 1; display: flex; flex-direction: column; padding-bottom: 20px; }
 .brand { font: 600 17px var(--serif); }
 .hud-shift { font: 500 12.5px var(--mono); letter-spacing: .06em; text-transform: uppercase; color: var(--text-muted); margin-right: auto; }
 .hud-tips { font-size: 14.5px; color: var(--text-secondary); background: var(--surface-1); border: 1px solid var(--line); border-radius: 999px; padding: 4px 12px; }
-.hud-tips b { font: 600 16px var(--serif); color: var(--text-primary); display: inline-block; min-width: 1.2em; text-align: right; }
+.hud-tips b { font: 600 16px var(--serif); color: var(--text-primary); display: inline-block; min-width: 1.2em; text-align: right; margin-left: 4px; }
 .hud-tips.bump b { animation: bump .35s ease; }
 @keyframes bump { 40% { transform: scale(1.35); color: var(--good); } }
 .icon-btn { appearance: none; background: transparent; border: 1.5px solid var(--line); border-radius: 999px; padding: 6px 14px; cursor: pointer; font-size: 14px; min-height: 36px; }

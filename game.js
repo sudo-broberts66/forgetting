@@ -354,7 +354,7 @@
       const group = conds.map((cond, i) => ({ cond, name: names[b * 4 + i], look: looks[b * 4 + i] }));
       for (let i = 0; i < group.length; i++) {
         const g = group[i], label = `Customer ${i + 1} of 4`;
-        const line = S.voice ? PULSE : `It's for <b>${g.name}</b>`;
+        const line = S.voice ? PULSE : `<span>It's for <b>${g.name}</b></span>`;
         pips(4, i); enter(g.look);
         if (g.cond === 'busy') {
           say(label, 'Ring up the sums. <b>They will say a name while you work.</b>');
