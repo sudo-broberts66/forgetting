@@ -467,6 +467,7 @@
         <li><b>Be there when it arrives.</b> Divided attention while taking something in sharply reduces later memory (${cite('craik96', 'Craik et al., 1996')}).</li>
       </ol>
       <p class="note">This is a game built on simplified versions of laboratory tasks. It cannot measure your memory or compare you with anyone else.</p>
+      <p class="note">Want the longer read? This game began as an explainer covering more of the research: <a href="original/">the original version</a>.</p>
       <div class="row"><button class="btn ghost" id="rep-sources" type="button">Sources</button><button class="btn" id="rep-again" type="button">Play again</button></div>`;
     show('scr-report');
     $('#rep-sources').addEventListener('click', () => openSources());
