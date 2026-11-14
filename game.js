@@ -20,25 +20,34 @@
   const S = { run: 0, voice: canSpeak && store.get('voice', true), sound: store.get('sound', true), tips: 0, best: store.get('best', 0), res: {}, layout: [] };
 
   /* ---------- sound and speech ---------- */
+  // Soft chimes only. Every note fades in and out, so the waveform never jumps (a jump is heard as a pop).
   let ac = null;
-  function blip(freqs, dur = 0.09, type = 'sine', vol = 0.05) {
-    if (!S.sound) return;
+  function audio() {
+    if (!S.sound) return null;
     try {
-      ac = ac || new (window.AudioContext || window.webkitAudioContext)();
-      let t = ac.currentTime;
-      for (const f of freqs) {
-        const o = ac.createOscillator(), g = ac.createGain();
-        o.type = type; o.frequency.value = f;
-        g.gain.setValueAtTime(vol, t); g.gain.exponentialRampToValueAtTime(0.001, t + dur);
-        o.connect(g); g.connect(ac.destination); o.start(t); o.stop(t + dur);
-        t += dur * 0.9;
-      }
-    } catch (e) { /* no audio */ }
+      if (!ac) { const AC = window.AudioContext || window.webkitAudioContext; if (!AC) return null; ac = new AC(); }
+      // Never queue notes on a stalled context: they would all fire at once when it wakes.
+      if (ac.state !== 'running') { ac.resume(); return null; }
+      return ac;
+    } catch (e) { return null; }
   }
-  const sfx = {
-    good: () => blip([660, 880]), bad: () => blip([220, 180], 0.12, 'triangle'),
-    coin: () => blip([1040], 0.06), bell: () => blip([784, 1046], 0.14), tick: () => blip([520], 0.04)
-  };
+  function chime(notes, vol = 0.04) {
+    const ctx = audio();
+    if (!ctx) return;
+    let t = ctx.currentTime + 0.03;
+    for (const f of notes) {
+      const o = ctx.createOscillator(), g = ctx.createGain();
+      o.type = 'sine'; o.frequency.value = f;
+      g.gain.value = 0;
+      g.gain.setValueAtTime(0, t);
+      g.gain.linearRampToValueAtTime(vol, t + 0.02);
+      g.gain.setTargetAtTime(0, t + 0.02, 0.05);
+      o.connect(g); g.connect(ctx.destination);
+      o.start(t); o.stop(t + 0.6);
+      t += 0.13;
+    }
+  }
+  const sfx = { good: () => chime([660, 880]), bad: () => chime([330, 262]), bell: () => chime([784, 1047]) };
   function speak(text, pitch = 1, volume = 1) {
     if (!canSpeak) return;
     const u = new SpeechSynthesisUtterance(text);
@@ -107,7 +116,7 @@
   function show(id) { for (const s of $$('.screen')) s.hidden = s.id !== id; window.scrollTo(0, 0); }
   function say(k, p) { ui.kicker.textContent = k; ui.prompt.innerHTML = p; }
   function bubble(html) { ui.bubble.hidden = !html; ui.bubble.innerHTML = html || ''; }
-  function enter(look) { ui.cust.innerHTML = avatar(look); ui.cust.classList.remove('out'); sfx.bell(); }
+  function enter(look) { ui.cust.innerHTML = avatar(look); ui.cust.classList.remove('out'); if (!S.voice) sfx.bell(); }
   function leave() { ui.cust.classList.add('out'); bubble(''); }
   function pips(n, i) { ui.pips.innerHTML = Array.from({ length: n }, (_, k) => `<i class="${k < i ? 'done' : k === i ? 'now' : ''}"></i>`).join(''); }
   function setShift(n, name) { ui.shift.textContent = `${n}/3 · ${name}`; }
@@ -115,7 +124,6 @@
     if (!n) return;
     S.tips = Math.max(0, S.tips + n); ui.tips.textContent = S.tips;
     ui.tipsWrap.classList.remove('bump'); void ui.tipsWrap.offsetWidth; ui.tipsWrap.classList.add('bump');
-    if (n > 0) sfx.coin();
   }
   function runTimer(secs) {
     const f = ui.timer.firstElementChild;
@@ -183,7 +191,7 @@
       }
       tiles.forEach(t => t.addEventListener('click', () => {
         if (t.getAttribute('aria-disabled') === 'true') return;
-        picked.push(t.dataset.id); sfx.tick(); draw();
+        picked.push(t.dataset.id); draw();
       }));
       keyHandler = e => {
         if (e.key === 'Backspace') { e.preventDefault(); picked.pop(); draw(); }
@@ -469,7 +477,7 @@
   async function startGame() {
     const run = ++S.run;
     const A = async p => { const v = await p; if (run !== S.run) throw CANCEL; return v; };
-    unlockSpeech();
+    unlockSpeech(); audio();
     S.tips = 0; ui.tips.textContent = '0'; S.res = {}; S.layout = shuffle(MENU);
     ui.tipsWrap.hidden = false; app.classList.add('playing');
     leave(); show('scr-play');
@@ -518,7 +526,7 @@
   $('#mode-read').addEventListener('click', () => setVoice(false));
   $('#set-hear').addEventListener('click', () => setVoice(true));
   $('#set-read').addEventListener('click', () => setVoice(false));
-  $('#set-sfx-on').addEventListener('click', () => { setSound(true); sfx.good(); });
+  $('#set-sfx-on').addEventListener('click', () => { setSound(true); audio(); setTimeout(sfx.good, 200); });
   $('#set-sfx-off').addEventListener('click', () => setSound(false));
   $('#btn-settings').addEventListener('click', () => dlgSet.showModal());
   $('#btn-close-settings').addEventListener('click', () => dlgSet.close());
